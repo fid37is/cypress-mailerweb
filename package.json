@@ -13,6 +13,10 @@
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
+    "axios": "^1.12.2",
     "cypress": "^14.5.4"
+  },
+  "dependencies": {
+    "nodemailer": "^7.0.6"
   }
 }

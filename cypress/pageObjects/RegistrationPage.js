@@ -112,7 +112,7 @@ class RegistrationPage {
     }
 
     verifyRegistrationSuccess() {
-        cy.url().should('include', '/login');
+        cy.url().should('include', '/all');
     }
 }
 

@@ -25,8 +25,21 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
 
-Cypress.Commands.add('login', (username, password) => {
-    cy.get('#username').type(username);
-    cy.get('#password').type(password);
-    cy.get('#login-button').click();
+// cypress/support/commands.js
+
+import LoginPage from '../PageObjects/LoginPage';
+
+Cypress.Commands.add('login', (email, password) => {
+  cy.session([email, password], () => {
+    const loginPage = new LoginPage();
+    loginPage.visit();
+    loginPage.enterEmail(email);
+    loginPage.login(password);
+    loginPage.verifyDashboard(); // Ensure login success
+  }, {
+    validate: () => {
+      cy.getCookie('venmail_session').should('exist'); // Adjust to actual cookie name
+    },
+    cacheAcrossSpecs: true // Persist session across test files
+  });
 });
